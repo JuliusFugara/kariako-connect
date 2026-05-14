@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KariakooConnect — App Concept Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96E;
+    --dark: #0D0D0D;
+    --dark-2: #141414;
+    --dark-3: #1E1E1E;
+    --dark-4: #2A2A2A;
+    --text: #F0EAD6;
+    --text-muted: #9A9080;
+    --green: #2ECC71;
+    --red: #E74C3C;
+    --blue: #3498DB;
+    --orange: #E67E22;
+    --accent: #C9A84C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 60px 20px;
+    background: radial-gradient(ellipse at 50% 0%, #2A1F00 0%, var(--dark) 70%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 60px,
+      rgba(201,168,76,0.03) 60px,
+      rgba(201,168,76,0.03) 61px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(201,168,76,0.03) 60px,
+      rgba(201,168,76,0.03) 61px
+    );
+  }
+
+  .hero-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 8px 20px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    animation: fadeIn 1s ease;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 10vw, 110px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    animation: slideUp 1s ease 0.2s both;
+  }
+
+  .hero h1 span {
+    display: block;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-tagline {
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 28px auto 48px;
+    font-weight: 300;
+    animation: slideUp 1s ease 0.4s both;
+  }
+
+  .hero-tagline strong { color: var(--gold); font-weight: 500; }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: slideUp 1s ease 0.6s both;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .section-subtitle {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 64px;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0;
+  }
+
+  /* OVERVIEW GRID */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .overview-cell {
+    background: var(--dark-2);
+    padding: 40px 36px;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .overview-cell:hover { background: var(--dark-3); }
+
+  .ov-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .ov-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  .ov-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  /* PROBLEM / SOLUTION */
+  .ps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  @media (max-width: 768px) { .ps-grid { grid-template-columns: 1fr; } }
+
+  .ps-card {
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ps-card.problem { background: #1A0A0A; border: 1px solid rgba(231,76,60,0.2); }
+  .ps-card.solution { background: #0A1A0F; border: 1px solid rgba(46,204,113,0.2); }
+
+  .ps-icon {
+    font-size: 48px;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .ps-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+  .ps-card.problem h3 { color: #E74C3C; }
+  .ps-card.solution h3 { color: #2ECC71; }
+
+  .ps-list { list-style: none; }
+  .ps-list li {
+    padding: 10px 0;
+    padding-left: 24px;
+    position: relative;
+    color: var(--text-muted);
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .ps-card.problem .ps-list li::before { content: '✕'; position: absolute; left: 0; color: #E74C3C; font-size: 12px; top: 12px; }
+  .ps-card.solution .ps-list li::before { content: '✓'; position: absolute; left: 0; color: #2ECC71; font-size: 12px; top: 12px; }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .feature-card {
+    background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 40px 36px;
+    position: relative;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .feature-card:hover {
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .feat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.1);
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    line-height: 1;
+  }
+
+  .feat-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .feat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--gold);
+  }
+
+  .feat-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .feat-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .feat-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--text-muted);
+    border-radius: 2px;
+  }
+
+  /* USER PERSONAS */
+  .personas-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .persona-card {
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 40px 32px;
+    background: var(--dark-2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .persona-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    background: rgba(201,168,76,0.1);
+    border: 2px solid rgba(201,168,76,0.3);
+  }
+
+  .persona-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .persona-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .persona-bio { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .persona-needs { list-style: none; }
+  .persona-needs li {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 6px 0;
+    padding-left: 16px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .persona-needs li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+  }
+
+  /* MAP COVERAGE */
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.15);
+    margin-bottom: 48px;
+  }
+
+  .map-country {
+    background: var(--dark-2);
+    padding: 40px 32px;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .map-country:hover { background: var(--dark-3); }
+
+  .map-flag { font-size: 48px; margin-bottom: 16px; display: block; }
+  .map-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .map-cities {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+  .map-status {
+    margin-top: 16px;
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  .map-status.launch { background: rgba(46,204,113,0.15); color: #2ECC71; border: 1px solid rgba(46,204,113,0.3); }
+  .map-status.soon { background: rgba(230,126,34,0.15); color: var(--orange); border: 1px solid rgba(230,126,34,0.3); }
+  .map-status.planned { background: rgba(52,152,219,0.15); color: var(--blue); border: 1px solid rgba(52,152,219,0.3); }
+
+  /* PAYMENTS */
+  .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .payment-card {
+    background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .payment-card:hover {
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-2px);
+  }
+  .pay-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+  .pay-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .pay-desc { font-size: 11px; color: var(--text-muted); }
+
+  /* PAYMENT MODEL */
+  .payment-model {
+    background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .payment-model::before {
+    content: 'ESCROW';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.04);
+    letter-spacing: -4px;
+  }
+
+  .payment-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 40px;
+  }
+
+  .pf-step {
+    text-align: center;
+    padding: 20px 24px;
+  }
+  .pf-step-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 12px;
+    background: rgba(201,168,76,0.08);
+  }
+  .pf-step-label { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .pf-step-sub { font-size: 11px; color: var(--text-muted); }
+
+  .pf-arrow {
+    font-size: 24px;
+    color: rgba(201,168,76,0.4);
+    padding: 0 8px;
+  }
+
+  .pf-highlight {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    border-radius: 2px;
+    margin-top: 8px;
+    display: inline-block;
+  }
+
+  /* TECH STACK */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .tech-card {
+    background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 36px 32px;
+  }
+  .tech-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .tech-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+  }
+  .tech-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* MONETIZATION */
+  .mono-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .mono-card {
+    background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .mono-percent {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .mono-name { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .mono-desc { font-size: 12px; color: var(--text-muted); }
+
+  /* ROADMAP */
+  .roadmap {
+    position: relative;
+    padding-left: 40px;
+  }
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .roadmap-item {
+    position: relative;
+    margin-bottom: 48px;
+    padding: 32px 36px;
+    background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.12);
+  }
+  .roadmap-item::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 36px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--dark);
+  }
+
+  .roadmap-phase {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .roadmap-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .roadmap-items { list-style: none; }
+  .roadmap-items li {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+  .roadmap-items li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark-2);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  footer h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  footer p { color: var(--text-muted); font-size: 14px; max-width: 500px; margin: 0 auto 40px; }
+
+  .footer-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(201,168,76,0.3);
+    text-transform: uppercase;
+    margin-top: 48px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* FULL BLEED SECTIONS */
+  .full-bleed {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .full-bleed-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(13,13,13,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  @media (max-width: 640px) { .nav-links { display: none; } }
+  @media (max-width: 640px) { .payment-flow { flex-direction: column; } .pf-arrow { transform: rotate(90deg); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">KariakooConnect</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#payments">Payments</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">App Concept Brief — 2025</div>
+  <h1>
+    Kariakoo<br>
+    <span>Connect</span>
+  </h1>
+  <p class="hero-tagline">
+    East Africa's premier <strong>B2B wholesale marketplace</strong> — connecting Kariakoo traders to buyers across Tanzania, Zimbabwe, Zambia & Malawi with live delivery tracking and integrated escrow payments.
+  </p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Countries</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">45%</div>
+      <div class="stat-label">Upfront Payment</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Payment Methods</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Platforms</div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-label">01 — Overview</div>
+  <div class="section-title">App at a Glance</div>
+  <p class="section-subtitle">Everything a decision-maker needs to understand the platform in under 60 seconds.</p>
+
+  <div class="overview-grid reveal">
+    <div class="overview-cell">
+      <div class="ov-label">App Name</div>
+      <div class="ov-value">KariakooConnect</div>
+      <div class="ov-sub">Tagline: "Wholesale Made Borderless"</div>
+    </div>
+    <div class="overview-cell">
+      <div class="ov-label">Category</div>
+      <div class="ov-value">B2B Commerce & Marketplace</div>
+      <div class="ov-sub">Commerce · Logistics · FinTech</div>
+    </div>
+    <div class="overview-cell">
+      <div class="ov-label">Platforms</div>
+      <div class="ov-value">Android App + Web Platform</div>
+      <div class="ov-sub">iOS to follow in Phase 2</div>
+    </div>
+    <div class="overview-cell">
+      <div class="ov-label">Primary Market</div>
+      <div class="ov-value">Kariakoo, Dar es Salaam</div>
+      <div class="ov-sub">Expanding to ZW · ZM · MW</div>
+    </div>
+    <div class="overview-cell">
+      <div class="ov-label">Product Categories</div>
+      <div class="ov-value">Consumer Goods, Clothes & Accessories</div>
+      <div class="ov-sub">Wholesale & Retail tiers</div>
+    </div>
+    <div class="overview-cell">
+      <div class="ov-label">Core Model</div>
+      <div class="ov-value">Escrow-Backed B2B Transactions</div>
+      <div class="ov-sub">45% upfront / 55% on delivery</div>
+    </div>
+    <div class="overview-cell">
+      <div class="ov-label">One-liner</div>
+      <div class="ov-value">"The Bloomberg Terminal for Kariakoo Traders"</div>
+      <div class="ov-sub">Quotation, fulfillment & tracking in one app</div>
+    </div>
+    <div class="overview-cell">
+      <div class="ov-label">Revenue Model</div>
+      <div class="ov-value">Commission + Subscription + FX Spread</div>
+      <div class="ov-sub">2–4% per transaction, premium plans</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM / SOLUTION -->
+<section style="max-width:none;padding:100px 20px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">02 — Problem & Solution</div>
+    <div class="section-title">Why KariakooConnect Exists</div>
+    <p class="section-subtitle">Kariakoo is East Africa's largest wholesale market — yet trade operates on phone calls, spreadsheets, and mistrust.</p>
+  </div>
+
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="ps-grid reveal">
+      <div class="ps-card problem">
+        <span class="ps-icon">🔴</span>
+        <h3>The Problem Today</h3>
+        <ul class="ps-list">
+          <li>Buyers in Zambia or Zimbabwe have no trusted way to source from Kariakoo without traveling physically</li>
+          <li>No verified product listings — quality is unknown until goods arrive</li>
+          <li>Payment fraud is rampant; sellers demand 100% cash upfront, buyers refuse</li>
+          <li>Zero real-time delivery visibility — shipments vanish for days</li>
+          <li>Cross-border FX is done manually at black-market rates with massive losses</li>
+          <li>No formal quotation system — WhatsApp negotiations with no paper trail</li>
+          <li>Small retailers cannot access wholesale MOQ (minimum order quantities) alone</li>
+          <li>Savings are kept under mattresses — no business banking for informal traders</li>
+        </ul>
+      </div>
+      <div class="ps-card solution">
+        <span class="ps-icon">🟢</span>
+        <h3>The KariakooConnect Solution</h3>
+        <ul class="ps-list">
+          <li>Verified digital storefront for every Kariakoo seller with photo catalogues & pricing tiers</li>
+          <li>In-app RFQ (Request For Quotation) system with PDF export and digital acceptance</li>
+          <li>Escrow wallet holds 45% upfront safely until buyer confirms delivery</li>
+          <li>Live GPS route tracker across TZ → ZW / ZM / MW borders with milestone alerts</li>
+          <li>Multi-currency wallets with M-Pesa, EcoCash, Airtel Money, PayPal & Visa integration</li>
+          <li>Group-buy feature for retailers to collectively meet wholesale MOQ thresholds</li>
+          <li>In-app savings accounts with interest for both buyers and sellers</li>
+          <li>KYC-verified accounts to build trust scores for repeat business</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- USER PERSONAS -->
+<section>
+  <div class="section-label">03 — Target Users</div>
+  <div class="section-title">Who Uses KariakooConnect</div>
+  <p class="section-subtitle">Three primary personas, each with distinct needs the platform serves end-to-end.</p>
+
+  <div class="personas-row reveal">
+    <div class="persona-card">
+      <div class="persona-avatar">🧑‍💼</div>
+      <div class="persona-name">Hassan M.</div>
+      <div class="persona-role">Wholesale Seller · Kariakoo</div>
+      <p class="persona-bio">Runs a 3-stall clothing business in Kariakoo. Imports from China & UAE. Currently sells via WhatsApp groups to buyers regionally but has no way to scale or verify buyers.</p>
+      <ul class="persona-needs">
+        <li>List products with wholesale & retail prices</li>
+        <li>Receive guaranteed payment before shipping</li>
+        <li>Track deliveries after dispatch</li>
+        <li>Access business savings account</li>
+        <li>Build verified seller reputation over time</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-avatar">👩‍💼</div>
+      <div class="persona-name">Chipo N.</div>
+      <div class="persona-role">Retail Buyer · Harare, Zimbabwe</div>
+      <p class="persona-bio">Owns a boutique clothing store in Harare. Travels to Kariakoo twice yearly to restock. Wants to source remotely but fears fraud and has no way to verify products before payment.</p>
+      <ul class="persona-needs">
+        <li>Browse verified seller catalogues with photos</li>
+        <li>Send RFQ and negotiate pricing in-app</li>
+        <li>Pay only 45% upfront via EcoCash / Visa</li>
+        <li>Track shipment in real time on Zimbabwe map</li>
+        <li>Release balance only after delivery confirmation</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-avatar">👨‍🔧</div>
+      <div class="persona-name">Emmanuel K.</div>
+      <div class="persona-role">Logistics Partner · Lusaka, Zambia</div>
+      <p class="persona-bio">Operates a cross-border trucking fleet between Tanzania, Zambia and Malawi. Wants to integrate with B2B platforms to get consistent cargo contracts and reduce empty-return trips.</p>
+      <ul class="persona-needs">
+        <li>Receive delivery assignments from the platform</li>
+        <li>Update shipment milestones via driver app</li>
+        <li>Get paid per delivery into platform wallet</li>
+        <li>Access route mapping for TZ-ZM corridor</li>
+        <li>Build reliability score for more assignments</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KEY FEATURES -->
+<section id="features">
+  <div class="section-label">04 — Core Features</div>
+  <div class="section-title">5 Features That Define the App</div>
+  <p class="section-subtitle">Every feature solves a specific pain point that keeps Kariakoo trade informal and risky.</p>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feat-num">01</div>
+      <span class="feat-icon">🏪</span>
+      <div class="feat-title">Verified Seller Storefronts</div>
+      <p class="feat-desc">Sellers create KYC-verified business profiles and list products with high-resolution photos, wholesale MOQ pricing, retail pricing, stock availability, and delivery lead times. Buyers can browse by category (Consumer Goods, Clothes, Accessories), apply filters, and save favourites. Every seller earns a Trust Score based on transaction history, response time, and dispute resolution.</p>
+      <div class="feat-tags">
+        <span class="feat-tag">KYC Verification</span>
+        <span class="feat-tag">Product Catalogue</span>
+        <span class="feat-tag">Trust Score</span>
+        <span class="feat-tag">Stock Sync</span>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feat-num">02</div>
+      <span class="feat-icon">📋</span>
+      <div class="feat-title">In-App RFQ & Quotation Engine</div>
+      <p class="feat-desc">Buyers submit a Request For Quotation directly to sellers specifying product, quantity, delivery destination and preferred currency. Sellers respond with a formal quote including unit price, total, shipping cost and estimated delivery date. Quotes are accepted digitally and auto-generate an order contract. Full negotiation thread is preserved as an audit trail. PDF export for offline records.</p>
+      <div class="feat-tags">
+        <span class="feat-tag">RFQ System</span>
+        <span class="feat-tag">Quote Negotiation</span>
+        <span class="feat-tag">PDF Export</span>
+        <span class="feat-tag">Order Contract</span>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feat-num">03</div>
+      <span class="feat-icon">🛡️</span>
+      <div class="feat-title">Escrow Wallet & 45/55 Payment Model</div>
+      <p class="feat-desc">When an order is confirmed, the buyer pays 45% upfront into a KariakooConnect escrow wallet — not directly to the seller. This protects both parties. The seller receives the 45% only after confirming dispatch. The remaining 55% is paid by the buyer upon confirmed delivery. If a dispute arises, escrow funds are frozen pending platform mediation. Sellers can also access a business savings account within the wallet with daily interest.</p>
+      <div class="feat-tags">
+        <span class="feat-tag">Escrow Protection</span>
+        <span class="feat-tag">45% Upfront</span>
+        <span class="feat-tag">Savings Account</span>
+        <span class="feat-tag">Dispute Mediation</span>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feat-num">04</div>
+      <span class="feat-icon">🗺️</span>
+      <div class="feat-title">Live Cross-Border Delivery Tracker</div>
+      <p class="feat-desc">Interactive maps for Tanzania, Zimbabwe, Zambia and Malawi. Shipments are tracked in real-time via GPS pings from logistics partner drivers. Buyers see their order's current location on the map with estimated arrival. Automated milestone notifications at key checkpoints: Dispatched → Border Crossing → In-Country Transit → Out for Delivery → Delivered. Supports multi-leg shipments (e.g. Dar → Lusaka → Lilongwe).</p>
+      <div class="feat-tags">
+        <span class="feat-tag">GPS Tracking</span>
+        <span class="feat-tag">4-Country Maps</span>
+        <span class="feat-tag">Milestone Alerts</span>
+        <span class="feat-tag">Multi-leg Routes</span>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feat-num">05</div>
+      <span class="feat-icon">💳</span>
+      <div class="feat-title">Multi-Modal Payment & Remittance Hub</div>
+      <p class="feat-desc">Seamlessly pay in your local method — M-Pesa (Tanzania), EcoCash (Zimbabwe), Airtel Money (Zambia/Malawi), PayPal (international), Visa/Mastercard (global), or in-app wallet. Built-in currency conversion at competitive rates for cross-border transactions. Remittance feature lets diaspora buyers fund orders from abroad. Sellers receive payouts in their preferred currency with instant settlement or scheduled batch payout.</p>
+      <div class="feat-tags">
+        <span class="feat-tag">M-Pesa</span>
+        <span class="feat-tag">EcoCash</span>
+        <span class="feat-tag">Airtel Money</span>
+        <span class="feat-tag">PayPal</span>
+        <span class="feat-tag">Visa/MC</span>
+        <span class="feat-tag">Remittance</span>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="border-color:rgba(201,168,76,0.25);">
+      <div class="feat-num">+</div>
+      <span class="feat-icon">🤝</span>
+      <div class="feat-title">Group Buy for Retailers</div>
+      <p class="feat-desc">Small retailers who can't meet a seller's wholesale MOQ alone can join or create a Group Buy. The platform pools orders from multiple buyers for the same product, reaching MOQ together and splitting the shipment on delivery. Automated contribution tracking, shared escrow, and pro-rated delivery costs. This democratises wholesale pricing for every small business across the region.</p>
+      <div class="feat-tags">
+        <span class="feat-tag">Pool Orders</span>
+        <span class="feat-tag">MOQ Splitting</span>
+        <span class="feat-tag">Shared Escrow</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MAP COVERAGE -->
+<section id="markets" style="max-width:none;padding:100px 20px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">05 — Geographic Coverage</div>
+    <div class="section-title">4-Country Market Coverage</div>
+    <p class="section-subtitle">Starting in Kariakoo and expanding across the Southern & East African trade corridor.</p>
+  </div>
+
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="map-grid reveal">
+      <div class="map-country">
+        <span class="map-flag">🇹🇿</span>
+        <div class="map-name">Tanzania</div>
+        <div class="map-cities">Dar es Salaam (Kariakoo)<br>Arusha · Mwanza · Dodoma<br>Moshi · Tanga · Zanzibar</div>
+        <div class="map-status launch">Launch Market</div>
+      </div>
+      <div class="map-country">
+        <span class="map-flag">🇿🇼</span>
+        <div class="map-name">Zimbabwe</div>
+        <div class="map-cities">Harare · Bulawayo<br>Mutare · Gweru<br>Masvingo · Kwekwe</div>
+        <div class="map-status soon">Phase 2</div>
+      </div>
+      <div class="map-country">
+        <span class="map-flag">🇿🇲</span>
+        <div class="map-name">Zambia</div>
+        <div class="map-cities">Lusaka · Kitwe<br>Ndola · Livingstone<br>Chipata · Kabwe</div>
+        <div class="map-status soon">Phase 2</div>
+      </div>
+      <div class="map-country">
+        <span class="map-flag">🇲🇼</span>
+        <div class="map-name">Malawi</div>
+        <div class="map-cities">Lilongwe · Blantyre<br>Mzuzu · Zomba<br>Kasungu · Mangochi</div>
+        <div class="map-status planned">Phase 3</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1200px;margin:40px auto 0;">
+    <div style="background:var(--dark-2);border:1px solid rgba(201,168,76,0.15);padding:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;" class="reveal">
+      <div>
+        <div class="section-label">Delivery Routes</div>
+        <div style="font-size:14px;color:var(--text-muted);line-height:2;">
+          Dar es Salaam → Lusaka<br>
+          Dar es Salaam → Harare<br>
+          Dar es Salaam → Lilongwe<br>
+          Lusaka → Harare<br>
+          Lusaka → Lilongwe<br>
+          Mombasa → Dar (via port)
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Map Features</div>
+        <div style="font-size:14px;color:var(--text-muted);line-height:2;">
+          Real-time GPS pin tracking<br>
+          Border crossing alerts<br>
+          ETA recalculation<br>
+          Historical route playback<br>
+          Offline map caching<br>
+          Warehouse location pins
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Tracker Technology</div>
+        <div style="font-size:14px;color:var(--text-muted);line-height:2;">
+          Google Maps SDK (Android)<br>
+          Leaflet.js (Web)<br>
+          Driver GPS app (Flutter)<br>
+          Push notifications<br>
+          SMS fallback alerts<br>
+          WhatsApp integration
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PAYMENT MODEL -->
+<section id="payments">
+  <div class="section-label">06 — Financial Architecture</div>
+  <div class="section-title">Payment Flow & Escrow Model</div>
+  <p class="section-subtitle">A trust-first financial model that protects both sides of every transaction.</p>
+
+  <div class="payment-model reveal">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">Transaction Flow</div>
+    <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:32px;">How Money Moves on KariakooConnect</div>
+
+    <div class="payment-flow">
+      <div class="pf-step">
+        <div class="pf-step-icon">🛒</div>
+        <div class="pf-step-label">Order Placed</div>
+        <div class="pf-step-sub">Buyer confirms<br>the quote</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-step">
+        <div class="pf-step-icon">🔒</div>
+        <div class="pf-step-label">45% to Escrow</div>
+        <div class="pf-step-sub">Held securely<br>by platform</div>
+        <div class="pf-highlight">BUYER PAYS</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-step">
+        <div class="pf-step-icon">📦</div>
+        <div class="pf-step-label">Seller Dispatches</div>
+        <div class="pf-step-sub">45% released<br>to seller</div>
+        <div class="pf-highlight">SELLER GETS 45%</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-step">
+        <div class="pf-step-icon">🚛</div>
+        <div class="pf-step-label">In Transit</div>
+        <div class="pf-step-sub">GPS tracked<br>across borders</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-step">
+        <div class="pf-step-icon">✅</div>
+        <div class="pf-step-label">Delivered & Confirmed</div>
+        <div class="pf-step-sub">55% released<br>to seller</div>
+        <div class="pf-highlight">SELLER GETS 55%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:48px;margin-bottom:24px;">Supported Payment Methods</div>
+  <div class="payment-grid reveal">
+    <div class="payment-card">
+      <span class="pay-icon">📱</span>
+      <div class="pay-name">M-Pesa</div>
+      <div class="pay-desc">Tanzania & Kenya mobile money</div>
+    </div>
+    <div class="payment-card">
+      <span class="pay-icon">🟢</span>
+      <div class="pay-name">EcoCash</div>
+      <div class="pay-desc">Zimbabwe dominant mobile wallet</div>
+    </div>
+    <div class="payment-card">
+      <span class="pay-icon">🔴</span>
+      <div class="pay-name">Airtel Money</div>
+      <div class="pay-desc">Zambia & Malawi coverage</div>
+    </div>
+    <div class="payment-card">
+      <span class="pay-icon">🅿️</span>
+      <div class="pay-name">PayPal</div>
+      <div class="pay-desc">International & diaspora buyers</div>
+    </div>
+    <div class="payment-card">
+      <span class="pay-icon">💳</span>
+      <div class="pay-name">Visa / Mastercard</div>
+      <div class="pay-desc">Global card payments</div>
+    </div>
+    <div class="payment-card">
+      <span class="pay-icon">🏦</span>
+      <div class="pay-name">Bank Transfer</div>
+      <div class="pay-desc">SWIFT & local RTGS rails</div>
+    </div>
+    <div class="payment-card">
+      <span class="pay-icon">💰</span>
+      <div class="pay-name">Remittance</div>
+      <div class="pay-desc">Diaspora-to-seller direct</div>
+    </div>
+    <div class="payment-card">
+      <span class="pay-icon">🪙</span>
+      <div class="pay-name">Platform Wallet</div>
+      <div class="pay-desc">In-app savings with interest</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TECH STACK -->
+<section>
+  <div class="section-label">07 — Technology</div>
+  <div class="section-title">Technical Architecture</div>
+  <p class="section-subtitle">Built for reliability in low-bandwidth African environments with offline-first design.</p>
+
+  <div class="tech-grid reveal">
+    <div class="tech-card">
+      <div class="tech-title">Android App</div>
+      <div class="tech-item"><div class="tech-dot"></div>Kotlin + Jetpack Compose (UI)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Google Maps SDK (tracking)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Firebase (push notifications)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Room DB (offline caching)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Retrofit (API client)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Coil (image loading)</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-title">Web Platform</div>
+      <div class="tech-item"><div class="tech-dot"></div>React + TypeScript (frontend)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Next.js (SSR & SEO)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Tailwind CSS (styling)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Leaflet.js + OpenStreetMap (maps)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Socket.io (real-time chat)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Stripe SDK (card payments)</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-title">Backend & Infrastructure</div>
+      <div class="tech-item"><div class="tech-dot"></div>Node.js + Express (API)</div>
+      <div class="tech-item"><div class="tech-dot"></div>PostgreSQL (primary DB)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Redis (sessions & cache)</div>
+      <div class="tech-item"><div class="tech-dot"></div>AWS S3 (media storage)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Docker + Kubernetes</div>
+      <div class="tech-item"><div class="tech-dot"></div>AWS / Africa region hosting</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-title">Payments & Compliance</div>
+      <div class="tech-item"><div class="tech-dot"></div>Flutterwave (M-Pesa, mobile)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Stripe (Visa / Mastercard)</div>
+      <div class="tech-item"><div class="tech-dot"></div>PayPal SDK</div>
+      <div class="tech-item"><div class="tech-dot"></div>Smile Identity (KYC/AML)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Currency API (FX rates)</div>
+      <div class="tech-item"><div class="tech-dot"></div>Bank of Tanzania compliance</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MONETIZATION -->
+<section>
+  <div class="section-label">08 — Business Model</div>
+  <div class="section-title">How KariakooConnect Makes Money</div>
+  <p class="section-subtitle">Multiple revenue streams designed to align platform incentives with trader success.</p>
+
+  <div class="mono-grid reveal">
+    <div class="mono-card">
+      <div class="mono-percent">2.5%</div>
+      <div class="mono-name">Transaction Commission</div>
+      <div class="mono-desc">Per completed order, charged to the seller on the total order value</div>
+    </div>
+    <div class="mono-card">
+      <div class="mono-percent">$29</div>
+      <div class="mono-name">Seller Pro Subscription</div>
+      <div class="mono-desc">Monthly plan for unlimited listings, analytics, priority placement & verified badge</div>
+    </div>
+    <div class="mono-card">
+      <div class="mono-percent">1.2%</div>
+      <div class="mono-name">FX Spread</div>
+      <div class="mono-desc">On all cross-border currency conversions within the platform wallet</div>
+    </div>
+    <div class="mono-card">
+      <div class="mono-percent">0.5%</div>
+      <div class="mono-name">Escrow Float Interest</div>
+      <div class="mono-desc">Platform earns overnight interest on funds held in escrow during transit</div>
+    </div>
+    <div class="mono-card">
+      <div class="mono-percent">$99</div>
+      <div class="mono-name">Featured Listings</div>
+      <div class="mono-desc">Sellers pay to appear at the top of category search results</div>
+    </div>
+    <div class="mono-card">
+      <div class="mono-percent">3%</div>
+      <div class="mono-name">Logistics Margin</div>
+      <div class="mono-desc">On platform-managed deliveries booked through KariakooConnect logistics partners</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-label">09 — Roadmap</div>
+  <div class="section-title">Build Plan & Launch Timeline</div>
+  <p class="section-subtitle">From MVP to multi-country expansion in 18 months.</p>
+
+  <div class="roadmap reveal">
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Phase 1 — Months 1–4</div>
+      <div class="roadmap-title">MVP Launch: Tanzania Only</div>
+      <ul class="roadmap-items">
+        <li>Seller onboarding with KYC and product listing (max 20 beta sellers from Kariakoo)</li>
+        <li>Buyer account creation and RFQ / quotation flow</li>
+        <li>M-Pesa and Visa payment integration with escrow wallet</li>
+        <li>Basic Tanzania map with manual shipment status updates</li>
+        <li>Android app (Kotlin) + responsive web platform</li>
+        <li>In-app messaging between buyer and seller</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Phase 2 — Months 5–9</div>
+      <div class="roadmap-title">Live GPS Tracking + Zimbabwe & Zambia</div>
+      <ul class="roadmap-items">
+        <li>Driver GPS tracker app (Flutter) integrated with buyer-facing maps</li>
+        <li>Zimbabwe (EcoCash) and Zambia (Airtel Money) payment methods added</li>
+        <li>Cross-border route maps: TZ → ZW and TZ → ZM corridors</li>
+        <li>Savings account feature within the seller wallet</li>
+        <li>Group Buy feature for retail buyers</li>
+        <li>Trust Score algorithm launched with seller reviews</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Phase 3 — Months 10–14</div>
+      <div class="roadmap-title">Malawi Expansion + Financial Products</div>
+      <ul class="roadmap-items">
+        <li>Malawi coverage with Airtel Malawi money integration</li>
+        <li>PayPal and Remittance hub for diaspora buyers</li>
+        <li>Business loans pilot for verified high-volume sellers (BNPL model)</li>
+        <li>Analytics dashboard for sellers (sales trends, top buyers, inventory alerts)</li>
+        <li>Automated customs documentation generation for cross-border shipments</li>
+        <li>iOS app release</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Phase 4 — Months 15–18</div>
+      <div class="roadmap-title">Scale, AI & Regional Dominance</div>
+      <ul class="roadmap-items">
+        <li>AI-powered product matching: recommend buyers to sellers based on purchase history</li>
+        <li>Expand to Kenya (Nairobi), Mozambique, and DRC</li>
+        <li>White-label logistics: KariakooConnect branded delivery service</li>
+        <li>Open API for third-party ERP and inventory systems</li>
+        <li>Series A fundraise targeting $5M for regional expansion</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <h2>KariakooConnect</h2>
+  <p>"Wholesale Made Borderless" — Building the infrastructure for East & Southern African B2B trade</p>
+
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:32px;margin-top:32px;">
+    <div style="text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">Primary Market</div>
+      <div style="font-size:14px;color:var(--text-muted);">Kariakoo, Dar es Salaam, Tanzania</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">Platforms</div>
+      <div style="font-size:14px;color:var(--text-muted);">Android · Web · (iOS Phase 2)</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">Document Type</div>
+      <div style="font-size:14px;color:var(--text-muted);">App Concept Brief — Confidential</div>
+    </div>
+  </div>
+
+  <div class="footer-meta">© 2025 KariakooConnect · Concept Document · All Rights Reserved</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
